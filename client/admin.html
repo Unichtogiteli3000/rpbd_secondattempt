@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Музыкальная библиотека</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Музыкальная библиотека</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="tracks.html">Треки</a></li>
+            <li><a href="collections.html">Коллекции</a></li>
+            <li><a href="search.html">Поиск</a></li>
+            <li><a href="admin.html" class="active">Админ-панель</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Админ-панель</h1>
+        
+        <div class="admin-tabs">
+            <button class="tab-button active" data-tab="users">Пользователи</button>
+            <button class="tab-button" data-tab="all-tracks">Все треки</button>
+            <button class="tab-button" data-tab="genres">Жанры</button>
+            <button class="tab-button" data-tab="audit">Журнал операций</button>
+        </div>
+
+        <div id="admin-content">
+            <!-- Содержимое вкладок будет загружено сюда -->
+            
+            <!-- Вкладка "Пользователи" -->
+            <div id="users-tab" class="tab-content active">
+                <h2>Управление пользователями</h2>
+                
+                <div class="admin-controls">
+                    <button id="add-user-btn" class="btn btn-primary">Добавить пользователя</button>
+                </div>
+                
+                <div class="users-list" id="users-list">
+                    <!-- Список пользователей будет загружен сюда -->
+                </div>
+            </div>
+            
+            <!-- Вкладка "Все треки" -->
+            <div id="all-tracks-tab" class="tab-content">
+                <h2>Все треки в системе</h2>
+                
+                <div class="tracks-controls">
+                    <input type="text" id="admin-track-search" placeholder="Поиск по трекам...">
+                    <select id="admin-genre-filter">
+                        <option value="">Все жанры</option>
+                    </select>
+                    <select id="admin-user-filter">
+                        <option value="">Все пользователи</option>
+                    </select>
+                </div>
+                
+                <div class="tracks-list" id="admin-tracks-list">
+                    <!-- Список всех треков будет загружен сюда -->
+                </div>
+            </div>
+            
+            <!-- Вкладка "Жанры" -->
+            <div id="genres-tab" class="tab-content">
+                <h2>Управление жанрами</h2>
+                
+                <div class="admin-controls">
+                    <input type="text" id="new-genre-name" placeholder="Название нового жанра">
+                    <button id="add-genre-btn" class="btn btn-primary">Добавить жанр</button>
+                </div>
+                
+                <div class="genres-list" id="genres-list">
+                    <!-- Список жанров будет загружен сюда -->
+                </div>
+            </div>
+            
+            <!-- Вкладка "Журнал операций" -->
+            <div id="audit-tab" class="tab-content">
+                <h2>Журнал операций</h2>
+                
+                <div class="audit-filters">
+                    <select id="audit-operation-filter">
+                        <option value="">Все операции</option>
+                        <option value="INSERT">Добавление</option>
+                        <option value="UPDATE">Изменение</option>
+                        <option value="DELETE">Удаление</option>
+                    </select>
+                    <select id="audit-table-filter">
+                        <option value="">Все таблицы</option>
+                        <option value="tracks">Треки</option>
+                        <option value="collections">Коллекции</option>
+                        <option value="users">Пользователи</option>
+                    </select>
+                    <input type="date" id="audit-date-from" placeholder="С даты">
+                    <input type="date" id="audit-date-to" placeholder="По дату">
+                    <button id="apply-audit-filters" class="btn btn-secondary">Применить фильтры</button>
+                </div>
+                
+                <div class="audit-log" id="audit-log">
+                    <!-- Журнал операций будет загружен сюда -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно для добавления/редактирования пользователя -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="user-modal-title">Добавить пользователя</h2>
+            <form id="user-form">
+                <div class="form-group">
+                    <label for="user-login">Логин:</label>
+                    <input type="text" id="user-login" name="login" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-password">Пароль:</label>
+                    <input type="password" id="user-password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-first-name">Имя:</label>
+                    <input type="text" id="user-first-name" name="first_name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-last-name">Фамилия:</label>
+                    <input type="text" id="user-last-name" name="last_name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-email">Email:</label>
+                    <input type="email" id="user-email" name="email">
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="user-is-admin" name="is_admin"> 
+                        Администратор
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-user-btn">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Загрузка начальных данных
+            loadUsers();
+            loadAllTracks();
+            loadGenres();
+            loadAuditLog();
+            
+            // Переключение вкладок
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    switchAdminTab(tabId);
+                });
+            });
+            
+            // Обработчики для вкладки "Пользователи"
+            document.getElementById('add-user-btn').addEventListener('click', showAddUserModal);
+            document.getElementById('user-form').addEventListener('submit', saveUser);
+            document.getElementById('cancel-user-btn').addEventListener('click', hideUserModal);
+            document.querySelector('#user-modal .close').addEventListener('click', hideUserModal);
+            
+            // Обработчики для вкладки "Жанры"
+            document.getElementById('add-genre-btn').addEventListener('click', addGenre);
+            
+            // Обработчики для вкладки "Журнал операций"
+            document.getElementById('apply-audit-filters').addEventListener('click', applyAuditFilters);
+        });
+    </script>
+</body>
+</html>

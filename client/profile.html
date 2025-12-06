@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя - Музыкальная библиотека</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Музыкальная библиотека</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="tracks.html">Треки</a></li>
+            <li><a href="collections.html">Коллекции</a></li>
+            <li><a href="search.html">Поиск</a></li>
+            <li><a href="admin.html">Админ-панель</a></li>
+            <li><a href="profile.html" class="active">Профиль</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Профиль пользователя</h1>
+        
+        <div class="profile-info">
+            <div class="avatar-section">
+                <img id="user-avatar" src="" alt="Аватар" class="avatar">
+                <button id="change-avatar-btn" class="btn btn-secondary">Изменить аватар</button>
+            </div>
+            
+            <div class="user-details">
+                <h2 id="user-name"></h2>
+                <p id="user-login"></p>
+                <p id="user-email"></p>
+            </div>
+        </div>
+
+        <div class="profile-form">
+            <h3>Редактировать профиль</h3>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="first-name">Имя:</label>
+                    <input type="text" id="first-name" name="first_name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="last-name">Фамилия:</label>
+                    <input type="text" id="last-name" name="last_name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="favorites-section">
+            <h3>Любимые жанры и исполнители</h3>
+            
+            <div class="favorites-form">
+                <h4>Любимые жанры</h4>
+                <div id="favorite-genres-list"></div>
+                <button id="add-favorite-genre-btn" class="btn btn-secondary">Добавить любимый жанр</button>
+            </div>
+            
+            <div class="favorites-form">
+                <h4>Любимые исполнители</h4>
+                <div id="favorite-artists-list"></div>
+                <button id="add-favorite-artist-btn" class="btn btn-secondary">Добавить любимого исполнителя</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProfile();
+            loadFavoriteGenres();
+            loadFavoriteArtists();
+            
+            document.getElementById('profile-form').addEventListener('submit', updateProfile);
+            document.getElementById('add-favorite-genre-btn').addEventListener('click', addFavoriteGenre);
+            document.getElementById('add-favorite-artist-btn').addEventListener('click', addFavoriteArtist);
+        });
+    </script>
+</body>
+</html>
