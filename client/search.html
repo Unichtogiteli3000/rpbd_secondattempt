@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск треков - Музыкальная библиотека</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Музыкальная библиотека</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="tracks.html">Треки</a></li>
+            <li><a href="collections.html">Коллекции</a></li>
+            <li><a href="search.html" class="active">Поиск</a></li>
+            <li><a href="admin.html">Админ-панель</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Поиск треков</h1>
+        
+        <div class="search-controls">
+            <div class="search-form">
+                <input type="text" id="search-query" placeholder="Введите название трека, исполнителя...">
+                <button id="search-btn" class="btn btn-primary">Найти</button>
+            </div>
+            
+            <div class="advanced-search">
+                <h3>Расширенный поиск</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="search-genre">Жанр:</label>
+                        <select id="search-genre">
+                            <option value="">Все жанры</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="search-artist">Исполнитель:</label>
+                        <input type="text" id="search-artist" placeholder="Исполнитель">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="search-bpm-min">BPM от:</label>
+                        <input type="number" id="search-bpm-min" placeholder="Мин. BPM">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="search-bpm-max">до:</label>
+                        <input type="number" id="search-bpm-max" placeholder="Макс. BPM">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="search-duration-min">Длит. от (сек):</label>
+                        <input type="number" id="search-duration-min" placeholder="Мин. сек">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="search-duration-max">до:</label>
+                        <input type="number" id="search-duration-max" placeholder="Макс. сек">
+                    </div>
+                </div>
+                
+                <button id="advanced-search-btn" class="btn btn-secondary">Расширенный поиск</button>
+            </div>
+        </div>
+
+        <div class="search-results" id="search-results">
+            <!-- Результаты поиска будут загружены сюда -->
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadGenresForSearch();
+            
+            document.getElementById('search-btn').addEventListener('click', performSearch);
+            document.getElementById('advanced-search-btn').addEventListener('click', performAdvancedSearch);
+            document.getElementById('search-query').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

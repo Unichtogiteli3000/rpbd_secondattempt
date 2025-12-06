@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Коллекции - Музыкальная библиотека</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Музыкальная библиотека</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="tracks.html">Треки</a></li>
+            <li><a href="collections.html" class="active">Коллекции</a></li>
+            <li><a href="search.html">Поиск</a></li>
+            <li><a href="admin.html">Админ-панель</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Мои коллекции</h1>
+        
+        <div class="collections-controls">
+            <button id="add-collection-btn" class="btn btn-primary">Создать коллекцию</button>
+        </div>
+
+        <div class="collections-list" id="collections-list">
+            <!-- Коллекции будут загружены сюда -->
+        </div>
+    </main>
+
+    <!-- Модальное окно для добавления/редактирования коллекции -->
+    <div id="collection-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="collection-modal-title">Создать коллекцию</h2>
+            <form id="collection-form">
+                <div class="form-group">
+                    <label for="collection-name">Название:</label>
+                    <input type="text" id="collection-name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="is-favorite" name="is_favorite"> 
+                        Это любимые треки
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-collection-btn">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для управления треками в коллекции -->
+    <div id="collection-tracks-modal" class="modal">
+        <div class="modal-content large-modal">
+            <span class="close" id="close-collection-tracks">&times;</span>
+            <h2 id="collection-tracks-title">Управление треками в коллекции</h2>
+            
+            <div class="collection-tracks-controls">
+                <button id="add-track-to-collection-btn" class="btn btn-primary">Добавить трек</button>
+            </div>
+            
+            <div class="collection-tracks-list" id="collection-tracks-list">
+                <!-- Треки коллекции будут загружены сюда -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для выбора трека для добавления в коллекцию -->
+    <div id="add-track-to-collection-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-add-track">&times;</span>
+            <h2>Выберите трек для добавления</h2>
+            
+            <div class="tracks-search">
+                <input type="text" id="track-search-input" placeholder="Поиск треков...">
+            </div>
+            
+            <div class="tracks-selection-list" id="tracks-selection-list">
+                <!-- Доступные треки для добавления -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCollections();
+            
+            document.getElementById('add-collection-btn').addEventListener('click', showAddCollectionModal);
+            document.getElementById('collection-form').addEventListener('submit', saveCollection);
+            document.getElementById('cancel-collection-btn').addEventListener('click', hideCollectionModal);
+            document.querySelector('#collection-modal .close').addEventListener('click', hideCollectionModal);
+            
+            document.getElementById('close-collection-tracks').addEventListener('click', hideCollectionTracksModal);
+            document.getElementById('close-add-track').addEventListener('click', hideAddTrackToCollectionModal);
+            document.getElementById('track-search-input').addEventListener('input', filterTracksForCollection);
+            document.getElementById('add-track-to-collection-btn').addEventListener('click', showAddTrackToCollectionModal);
+        });
+    </script>
+</body>
+</html>

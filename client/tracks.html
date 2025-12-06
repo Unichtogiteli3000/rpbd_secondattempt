@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои треки - Музыкальная библиотека</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Музыкальная библиотека</div>
+        <ul class="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="tracks.html" class="active">Треки</a></li>
+            <li><a href="collections.html">Коллекции</a></li>
+            <li><a href="search.html">Поиск</a></li>
+            <li><a href="admin.html">Админ-панель</a></li>
+            <li><a href="profile.html">Профиль</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <h1>Мои треки</h1>
+        
+        <div class="tracks-controls">
+            <button id="add-track-btn" class="btn btn-primary">Добавить трек</button>
+            <div class="filter-controls">
+                <select id="genre-filter">
+                    <option value="">Все жанры</option>
+                </select>
+                <input type="text" id="artist-filter" placeholder="Поиск по исполнителю">
+                <input type="number" id="bpm-filter" placeholder="BPM">
+            </div>
+        </div>
+
+        <div class="tracks-list" id="tracks-list">
+            <!-- Треки будут загружены сюда -->
+        </div>
+    </main>
+
+    <!-- Модальное окно для добавления/редактирования трека -->
+    <div id="track-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="track-modal-title">Добавить трек</h2>
+            <form id="track-form">
+                <div class="form-group">
+                    <label for="track-title">Название:</label>
+                    <input type="text" id="track-title" name="title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="track-artist">Исполнитель:</label>
+                    <input type="text" id="track-artist" name="artist" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="track-genre">Жанр:</label>
+                    <select id="track-genre" name="genre_id" required>
+                        <option value="">Выберите жанр</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="track-bpm">BPM:</label>
+                    <input type="number" id="track-bpm" name="bpm">
+                </div>
+                
+                <div class="form-group">
+                    <label for="track-duration">Длительность (сек):</label>
+                    <input type="number" id="track-duration" name="duration_sec">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-track-btn">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTracks();
+            loadGenresForSelect();
+            
+            document.getElementById('add-track-btn').addEventListener('click', showAddTrackModal);
+            document.getElementById('track-form').addEventListener('submit', saveTrack);
+            document.getElementById('cancel-track-btn').addEventListener('click', hideTrackModal);
+            document.querySelector('.modal .close').addEventListener('click', hideTrackModal);
+            
+            // Фильтры
+            document.getElementById('genre-filter').addEventListener('change', applyFilters);
+            document.getElementById('artist-filter').addEventListener('input', applyFilters);
+            document.getElementById('bpm-filter').addEventListener('input', applyFilters);
+        });
+    </script>
+</body>
+</html>
